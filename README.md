@@ -24,10 +24,9 @@ let voiceSearch = algoliaAlexaAdapter({
     },
     intentHandlers: {
       SearchProductIntent: {
-        speechTemplate: 'The top product is {{name}} from {{brand}}. It costs ${{price}}.',
-        emptyTemplate: function(data){
-          return 'There were no products for your {{data.query}} search.'
-        },
+        answerWith: function(data)
+          // Can tell/ask based on whatever criteria they like (even if there are no results)
+        }
         comparisons: {
           'more expensive than': '>',
           'less expensive than': '<'
@@ -42,5 +41,10 @@ let voiceSearch = algoliaAlexaAdapter({
   }
 });
 
-exports.handler = voiceSearch.search(event, context);
+voiceSearch.on('algoliaError', (err)=> {
+  // Speak to the user
+  // Tell the user if it's something they can fix or if it's unfixable
+});
+
+exports.handler = voiceSearch;
 ```
