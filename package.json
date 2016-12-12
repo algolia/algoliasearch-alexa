@@ -11,19 +11,29 @@
     "type": "git",
     "url": "git@github.com:algolia/algoliasearch-alexa-adapter.git"
   },
-  "keywords": ["algolia", "search", "search api", "alexa skills kit", "voice ui", "amazon echo"],
+  "keywords": [
+    "algolia",
+    "search",
+    "search api",
+    "alexa skills kit",
+    "voice ui",
+    "amazon echo"
+  ],
   "homepage": "https://github.com/algolia/algoliasearch-alexa-adapter",
   "bugs": "https://github.com/algolia/algoliasearch-alexa-adapter/issues",
   "author": {
     "name": "Algolia, Inc.",
     "url": "https://www.algolia.com"
   },
-  "contributors": [{
-    "name": "Algolia Team <support@algolia.com>",
-    "url": "http://www.algolia.com"
-  }],
+  "contributors": [
+    {
+      "name": "Algolia Team <support@algolia.com>",
+      "url": "http://www.algolia.com"
+    }
+  ],
   "dependencies": {
-    "babel-cli": "^6.18.0"
+    "babel-cli": "^6.18.0",
+    "babel-preset-latest": "^6.16.0"
   },
   "devDependencies": {},
   "engines": {
