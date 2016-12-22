@@ -1,4 +1,4 @@
-function algoliaAlexaAdapter (opts) {
+export default function algoliaAlexaAdapter (opts) {
   if (!opts) {
     throw new Error('Must initialize with options');
   }
@@ -28,5 +28,3 @@ function algoliaAlexaAdapter (opts) {
 algoliaAlexaAdapter.prototype.search = function(event, context) {
   new this.Skill().execute(event, context);
 };
-
-module.exports = algoliaAlexaAdapter;

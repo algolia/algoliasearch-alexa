@@ -1,5 +1,5 @@
-const test = require('tape');
-const algoliaAlexaAdapter = require('../src/index.js');
+import test from 'tape';
+import algoliaAlexaAdapter from '../src/index.js';
 const args = {};
 
 test('constructor', t => {
