@@ -12,14 +12,28 @@ export default function algoliaAlexaAdapter (opts) {
     handlers,
   } = opts;
 
+  if (algoliaAppId === undefined) {
+    throw new Error('Must initialize with algoliaAppId');
+  }
+
+  if (alexaAppId === undefined) {
+    throw new Error('Must initialize with alexaAppId');
+  }
+
+  if (defaultIndexName === undefined) {
+    throw new Error('Must initialize with defaultIndexName');
+  }
+
   const errorHandlers = {
-    algoliaError: undefined,
+    algoliaError () {
+      throw new Error('algoliaError must be overwritten by client');
+    },
   };
 
   const skill = function() {};
 
-  skill.onAlgoliaError = function(e) {
-    return errorHandlers(e);
+  skill.on = function(name, fn) {
+    errorHandlers[name] = fn;
   };
 
   return skill;
