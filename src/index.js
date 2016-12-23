@@ -1,3 +1,5 @@
+import AlexaSkill from 'alexa-sdk';
+
 export default function algoliaAlexaAdapter (opts) {
   if (!opts) {
     throw new Error('Must initialize with options');
@@ -30,7 +32,13 @@ export default function algoliaAlexaAdapter (opts) {
     },
   };
 
-  const skill = function() {};
+  const Skill = function() {
+    AlexaSkill.call(this, alexaAppId);
+  };
+
+  const skill = function(event, context) {
+    new Skill().execute(event, context);
+  };
 
   skill.on = function(name, fn) {
     errorHandlers[name] = fn;
@@ -38,7 +46,3 @@ export default function algoliaAlexaAdapter (opts) {
 
   return skill;
 }
-
-algoliaAlexaAdapter.prototype.search = function(event, context) {
-  new this.Skill().execute(event, context);
-};
