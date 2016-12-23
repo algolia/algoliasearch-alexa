@@ -1,4 +1,4 @@
-import AlexaSkill from 'alexa-sdk';
+import Alexa from 'alexa-sdk';
 
 export default function algoliaAlexaAdapter (opts) {
   if (!opts) {
@@ -32,16 +32,16 @@ export default function algoliaAlexaAdapter (opts) {
     },
   };
 
-  const Skill = function() {
-    AlexaSkill.call(this, alexaAppId);
-  };
-
-  const skill = function(event, context) {
-    new Skill().execute(event, context);
-  };
+  const skill = {};
 
   skill.on = function(name, fn) {
     errorHandlers[name] = fn;
+  };
+
+  skill.handler = function(event, context) {
+    const alexa = Alexa.handler(event, context);
+    alexa.registerHandlers(handlers);
+    alexa.execute();
   };
 
   return skill;
