@@ -1,4 +1,5 @@
 import Alexa from 'alexa-sdk';
+import EventEmitter from 'events';
 
 export default function algoliaAlexaAdapter (opts) {
   if (!opts) {
@@ -26,17 +27,7 @@ export default function algoliaAlexaAdapter (opts) {
     throw new Error('Must initialize with defaultIndexName');
   }
 
-  const errorHandlers = {
-    algoliaError () {
-      throw new Error('algoliaError must be overwritten by client');
-    },
-  };
-
-  const skill = {};
-
-  skill.on = function(name, fn) {
-    errorHandlers[name] = fn;
-  };
+  const skill = new EventEmitter();
 
   skill.handler = function(event, context) {
     const alexa = Alexa.handler(event, context);

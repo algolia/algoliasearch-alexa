@@ -22,5 +22,5 @@ test('constructor', t => {
     algoliaAlexaAdapter(copyExcept(args, 'defaultIndexName'));
   }, Error, 'if defaultIndexName is not present');
 
-  t.equal(typeof algoliaAlexaAdapter(args), 'function', 'returns a function');
+  t.equal(typeof algoliaAlexaAdapter(args), 'object', 'returns an object');
 });
