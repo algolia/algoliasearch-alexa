@@ -11,19 +11,20 @@ function hasAnswerWith(obj) {
 }
 
 function buildHandlers (handlersObj, index) {
-  const intentHandlers = handlersObj.intentHandlers;
+  const intentHandlers = handlersObj.intentHandlers; //Error when this doesn't exist
 
   Object.keys(intentHandlers).map(key => {
     if (isFunction(intentHandlers[key])) {
       return intentHandlers[key];
     } else if (hasAnswerWith(intentHandlers[key])) {
-      intentHandlers[key].answerWith = function(intent, session, response) {
+      const func = intentHandlers[key].answerWith;
+      intentHandlers[key] = function(intent, session, response) {
         const args = {intent, session, response};
         index
           .search(intent.query.slots.value)
           .then((err, content) => {
             Object.assign(args, {err, content});
-            intentHandlers[key].answerWith(args);
+            func(args);
           });
       };
       return intentHandlers[key];
