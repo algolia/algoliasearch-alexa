@@ -1,6 +1,6 @@
 import test from 'tape';
 import algoliaAlexaAdapter from '../src/index.js';
-import copyExcept from './lib/copy_except.js';
+import copyExcept from '../src/utils/copy_except.js';
 
 const args = {
   algoliaAppId: 'EXAMPLE',

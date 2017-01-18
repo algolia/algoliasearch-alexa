@@ -4,7 +4,10 @@ This is an adapter that allows you to use the Algolia search API easily within y
 
 ```javascript
 const voiceSearch = algoliaAlexaAdapter({
-  algoliaAppId: 'APP_ID',
+  algolia: {
+    appId: 'APP_ID',
+    apiKey: 'API_KEY',
+  },
   alexaAppId: 'FROM_AMAZON_LAMBDA',
   defaultIndexName: 'products',
   comparisons: [{
