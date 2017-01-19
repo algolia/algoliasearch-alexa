@@ -47,7 +47,10 @@
   "peerDependencies": {
     "alexa-sdk": "^1.0.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "alexa-sdk": "^1.0.6",
+    "jest": "^18.1.0"
+  },
   "engines": {
     "node": ">=0.8"
   },
