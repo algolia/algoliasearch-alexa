@@ -65,6 +65,10 @@ export default function algoliaAlexaAdapter (opts) {
     throw new Error('Must initialize with defaultIndexName');
   }
 
+  if (handlers === undefined) {
+    throw new Error('Must initialize with handlers');
+  }
+
   const skill = new EventEmitter();
   const client = new Algoliasearch(algolia.appId, algolia.apiKey);
   const index = client.initIndex(defaultIndexName);

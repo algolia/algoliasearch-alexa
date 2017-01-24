@@ -8,7 +8,11 @@
     "build": "babel src -d lib",
     "lint": "if [ \"$CI\" = \"true\" ]; then eslint .; else eslint . --cache; fi",
     "lint:fix": "eslint . --fix",
-    "test": "babel-tape-runner ./test/tap-test.js | tap-spec"
+    "test": "jest"
+  },
+  "jest": {
+    "rootDir": "test",
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -40,16 +44,15 @@
     "babel-preset-latest": "^6.16.0",
     "babel-tape-runner": "^2.0.1",
     "eslint": "^3.12.0",
-    "eslint-config-algolia": "^6.0.1",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.6.3"
+    "eslint-config-algolia": "^6.0.1"
   },
   "peerDependencies": {
     "alexa-sdk": "^1.0.6"
   },
   "devDependencies": {
     "alexa-sdk": "^1.0.6",
-    "jest": "^18.1.0"
+    "jest": "^18.1.0",
+    "just": "^0.1.8"
   },
   "engines": {
     "node": ">=0.8"
