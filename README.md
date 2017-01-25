@@ -8,7 +8,7 @@ const voiceSearch = algoliaAlexaAdapter({
     appId: 'APP_ID',
     apiKey: 'API_KEY',
   },
-  alexaAppId: 'FROM_AMAZON_LAMBDA',
+  alexaAppId: 'FROM_AMAZON',
   defaultIndexName: 'products',
   comparisons: [{
     'less than': '>',
