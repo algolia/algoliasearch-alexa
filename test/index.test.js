@@ -1,9 +1,23 @@
 /* global
-  it, expect, describe
+  it, expect, describe, jest
 */
 
 import algoliaAlexaAdapter from '../src/index.js';
 import copyExcept from '../src/utils/copy_except.js';
+import buildHandlers from '../src/utils/build_handlers.js';
+
+const Algoliasearch = jest.fn(() => ({
+  initIndex () {},
+}));
+
+const Alexa = {
+  handler () {
+    return {
+      registerHandlers () {},
+      execute () {},
+    };
+  },
+};
 
 const args = {
   algolia: {
@@ -13,8 +27,14 @@ const args = {
   alexaAppId: 'amzn1.echo-sdk-ams.app.fffff-aaa-fffff-0000',
   defaultIndexName: 'products',
   handlers: {
-    intentHandlers: {},
+    intentHandlers: {
+      HelpHandler: {
+        answerWith () {},
+      },
+    },
   },
+  SearchConstructor: Algoliasearch,
+  AlexaSDK: Alexa,
 };
 
 describe('constructor', () => {
@@ -60,5 +80,30 @@ describe('constructor', () => {
 
   it('returns an object', () => {
     expect(algoliaAlexaAdapter(args)).toEqual(expect.any(Object));
+  });
+});
+
+describe('handlers', () => {
+  const searchSpy = jest.fn(() => Promise.resolve());
+  const index = {
+    search: searchSpy,
+  };
+  const handlers = {
+    onLaunch() {},
+    intentHandlers: {
+      spyIntent: {
+        answerWith () {},
+      },
+      unChangedIntent () {},
+    },
+  };
+
+  describe('when intent handler is specified', () => {
+    describe('when handler is invoked', () => {
+      it('searches Algolia', () => {
+        buildHandlers(handlers, index).intentHandlers.spyIntent({slots: {query: {value: ''}}});
+        expect(searchSpy).toHaveBeenCalled();
+      });
+    });
   });
 });
