@@ -8,7 +8,7 @@
     "build": "babel src -d lib",
     "lint": "if [ \"$CI\" = \"true\" ]; then eslint .; else eslint . --cache; fi",
     "lint:fix": "eslint . --fix",
-    "test": "jest"
+    "test": "jest && eslint ."
   },
   "jest": {
     "rootDir": "test",
