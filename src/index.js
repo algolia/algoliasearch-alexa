@@ -9,8 +9,8 @@ export default function algoliaAlexaAdapter (opts) {
   }
 
   const {
-    algolia,
-    alexaAppId,
+    algoliaAppId,
+    algoliaApiKey,
     defaultIndexName,
     comparisons,
     availableSorts,
@@ -19,12 +19,12 @@ export default function algoliaAlexaAdapter (opts) {
     AlexaSDK = Alexa,
   } = opts;
 
-  if (algolia === undefined || algolia.appId === undefined || algolia.apiKey === undefined) {
-    throw new Error('Must initialize with algolia object with appId and apiKey');
+  if (algoliaAppId === undefined) {
+    throw new Error('Must initialize with algoliaAppId');
   }
 
-  if (alexaAppId === undefined) {
-    throw new Error('Must initialize with alexaAppId');
+  if (algoliaApiKey === undefined) {
+    throw new Error('Must initialize with algoliaApiKey');
   }
 
   if (defaultIndexName === undefined) {
@@ -36,7 +36,7 @@ export default function algoliaAlexaAdapter (opts) {
   }
 
   const skill = new EventEmitter();
-  const client = new SearchConstructor(algolia.appId, algolia.apiKey);
+  const client = new SearchConstructor(algoliaAppId, algoliaApiKey);
   const index = client.initIndex(defaultIndexName);
 
   skill.handler = function(event, context) {

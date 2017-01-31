@@ -20,10 +20,8 @@ const Alexa = {
 };
 
 const args = {
-  algolia: {
-    appId: 'APP_ID',
-    apiKey: 'API_KEY',
-  },
+  algoliaAppId: 'APP_ID',
+  algoliaApiKey: 'API_KEY',
   alexaAppId: 'amzn1.echo-sdk-ams.app.fffff-aaa-fffff-0000',
   defaultIndexName: 'products',
   handlers: {
@@ -52,15 +50,15 @@ describe('constructor', () => {
     });
 
     describe('requires certain values', () => {
-      it('must have algolia object', () => {
+      it('must have algoliaAppId', () => {
         expect(() => {
-          algoliaAlexaAdapter(copyExcept(args, 'algolia'));
+          algoliaAlexaAdapter(copyExcept(args, 'algoliaAppId'));
         }).toThrow();
       });
 
-      it('must have alexaAppId', () => {
+      it('must have algoliaApiKey', () => {
         expect(() => {
-          algoliaAlexaAdapter(copyExcept(args, 'alexaAppId'));
+          algoliaAlexaAdapter(copyExcept(args, 'algoliaApiKey'));
         }).toThrow();
       });
 
