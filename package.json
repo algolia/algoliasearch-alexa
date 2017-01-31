@@ -9,7 +9,8 @@
     "lint": "if [ \"$CI\" = \"true\" ]; then eslint .; else eslint . --cache; fi",
     "lint:fix": "eslint . --fix",
     "test": "jest && eslint ./src ./test",
-    "dev": "jest --watch"
+    "dev": "jest --watch",
+    "prepublish": "npm run build"
   },
   "jest": {
     "rootDir": "test",
