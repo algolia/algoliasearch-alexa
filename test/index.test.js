@@ -25,10 +25,8 @@ const args = {
   alexaAppId: 'amzn1.echo-sdk-ams.app.fffff-aaa-fffff-0000',
   defaultIndexName: 'products',
   handlers: {
-    intentHandlers: {
-      HelpHandler: {
-        answerWith () {},
-      },
+    HelpHandler: {
+      answerWith () {},
     },
   },
   algoliasearch,
@@ -87,20 +85,18 @@ describe('handlers', () => {
     search: searchSpy,
   };
   const handlers = {
-    onLaunch() {},
-    intentHandlers: {
-      spyIntent: {
-        answerWith () {},
-      },
-      unChangedIntent () {},
+    LaunchRequest () {},
+    spyIntent: {
+      answerWith () {},
     },
+    unChangedIntent () {},
   };
 
   describe('when intent handler is specified', () => {
     describe('when handler is invoked', () => {
       it('searches Algolia', () => {
         const expectedQuery = 'query';
-        buildHandlers(handlers, index).intentHandlers.spyIntent({slots: {query: {value: expectedQuery}}});
+        buildHandlers(handlers, index).spyIntent({slots: {query: {value: expectedQuery}}});
         expect(searchSpy).toHaveBeenCalledWith(expectedQuery);
       });
     });
