@@ -6,7 +6,7 @@ import algoliaAlexaAdapter from '../src/index.js';
 import copyExcept from '../src/utils/copy_except.js';
 import buildHandlers from '../src/utils/build_handlers.js';
 
-const Algoliasearch = jest.fn(() => ({
+const algoliasearch = jest.fn(() => ({
   initIndex () {},
 }));
 
@@ -31,8 +31,8 @@ const args = {
       },
     },
   },
-  SearchConstructor: Algoliasearch,
-  AlexaSDK: Alexa,
+  algoliasearch,
+  Alexa,
 };
 
 describe('constructor', () => {

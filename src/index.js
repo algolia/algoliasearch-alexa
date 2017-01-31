@@ -1,6 +1,6 @@
-import Alexa from 'alexa-sdk';
+import AlexaSDK from 'alexa-sdk';
 import EventEmitter from 'events';
-import Algoliasearch from 'algoliasearch';
+import searchConstructor from 'algoliasearch';
 import buildHandlers from './utils/build_handlers.js';
 
 export default function algoliaAlexaAdapter (opts) {
@@ -13,8 +13,8 @@ export default function algoliaAlexaAdapter (opts) {
     algoliaApiKey,
     defaultIndexName,
     handlers,
-    SearchConstructor = Algoliasearch,
-    AlexaSDK = Alexa,
+    algoliasearch = searchConstructor,
+    Alexa = AlexaSDK,
   } = opts;
 
   if (algoliaAppId === undefined) {
@@ -34,11 +34,11 @@ export default function algoliaAlexaAdapter (opts) {
   }
 
   const skill = new EventEmitter();
-  const client = new SearchConstructor(algoliaAppId, algoliaApiKey);
+  const client = algoliasearch(algoliaAppId, algoliaApiKey);
   const index = client.initIndex(defaultIndexName);
 
   skill.handler = function(event, context) {
-    const alexa = AlexaSDK.handler(event, context);
+    const alexa = Alexa.handler(event, context);
     alexa.registerHandlers(buildHandlers(handlers, index));
     alexa.execute();
   };
