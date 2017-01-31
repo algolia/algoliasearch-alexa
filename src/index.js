@@ -12,8 +12,6 @@ export default function algoliaAlexaAdapter (opts) {
     algoliaAppId,
     algoliaApiKey,
     defaultIndexName,
-    comparisons,
-    availableSorts,
     handlers,
     SearchConstructor = Algoliasearch,
     AlexaSDK = Alexa,
