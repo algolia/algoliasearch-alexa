@@ -1,5 +1,5 @@
 /* global
-  it, expect, describe, jest
+  it, expect, describe, jest, beforeEach
 */
 
 import algoliaAlexaAdapter from '../src/index.js';
@@ -92,12 +92,25 @@ describe('handlers', () => {
     unChangedIntent () {},
   };
 
+  beforeEach(() => {
+    searchSpy.mockClear();
+  });
+
   describe('when intent handler is specified', () => {
-    describe('when handler is invoked', () => {
-      it('searches Algolia', () => {
-        const expectedQuery = 'query';
-        buildHandlers(handlers, index).spyIntent({slots: {query: {value: expectedQuery}}});
-        expect(searchSpy).toHaveBeenCalledWith(expectedQuery);
+    describe('with answerWith', () => {
+      describe('when handler is invoked', () => {
+        it('searches Algolia', () => {
+          const expectedQuery = 'query';
+          buildHandlers(handlers, index).spyIntent({slots: {query: {value: expectedQuery}}});
+          expect(searchSpy).toHaveBeenCalledWith(expectedQuery);
+        });
+      });
+    });
+
+    describe('without answerWith', () => {
+      it('does not search Algolia', () => {
+        buildHandlers(handlers, index).unChangedIntent();
+        expect(searchSpy).not.toHaveBeenCalled();
       });
     });
   });
