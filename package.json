@@ -39,18 +39,18 @@
     }
   ],
   "dependencies": {
-    "algoliasearch": "^3.20.2",
-    "babel-cli": "^6.18.0",
-    "babel-preset-latest": "^6.16.0",
-    "babel-tape-runner": "^2.0.1",
-    "eslint": "^3.12.0",
-    "eslint-config-algolia": "^6.0.1"
+    "algoliasearch": "^3.20.2"
   },
   "peerDependencies": {
     "alexa-sdk": "^1.0.6"
   },
   "devDependencies": {
     "alexa-sdk": "^1.0.6",
+    "babel-cli": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-tape-runner": "^2.0.1",
+    "eslint": "^3.12.0",
+    "eslint-config-algolia": "^6.0.1",
     "jest": "^18.1.0",
     "just": "^0.1.8"
   },
