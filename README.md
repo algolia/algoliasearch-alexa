@@ -1,3 +1,18 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Algolia Alexa Skills Kit Adapter](#algolia-alexa-skills-kit-adapter)
+  - [API Description](#api-description)
+    - [algoliaAlexaAdapter](#algoliaalexaadapter)
+      - [Handlers Configuration](#handlers-configuration)
+        - [Without Querying Algolia](#without-querying-algolia)
+        - [Querying Algolia](#querying-algolia)
+  - [Dev](#dev)
+  - [Linting](#linting)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Algolia Alexa Skills Kit Adapter
 
 This is an adapter that allows you to use the Algolia search API easily within your Alexa Skills Kit Skill. It provides tools for integrating Algolia search and a framework for structuring your Alexa skill.
