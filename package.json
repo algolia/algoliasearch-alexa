@@ -2,13 +2,16 @@
   "name": "algoliasearch-alexa",
   "version": "0.0.0",
   "description": "AlgoliaSearch Alexa Skills Kit Adapter",
-  "main": "index.js",
+  "main": "lib/index.js",
   "browser": {},
   "scripts": {
     "build": "babel src -d lib",
     "lint": "if [ \"$CI\" = \"true\" ]; then eslint .; else eslint . --cache; fi",
     "lint:fix": "eslint . --fix",
-    "test": "jest && eslint ."
+    "test": "jest && eslint ./src ./test",
+    "dev": "jest --watch",
+    "prepublish": "npm run build",
+    "release": "./scripts/release.sh"
   },
   "jest": {
     "rootDir": "test",
@@ -49,6 +52,8 @@
     "babel-cli": "^6.18.0",
     "babel-preset-latest": "^6.16.0",
     "babel-tape-runner": "^2.0.1",
+    "conventional-changelog-cli": "^1.2.0",
+    "doctoc": "^1.2.0",
     "eslint": "^3.12.0",
     "eslint-config-algolia": "^6.0.1",
     "jest": "^18.1.0",
