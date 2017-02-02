@@ -3,4 +3,4 @@
 .eslintrc.js
 *.js
 !lib/
-!lib/utils
+!lib/utils/
