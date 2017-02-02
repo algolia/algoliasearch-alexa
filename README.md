@@ -7,7 +7,7 @@ Developed to be used on Amazon Lambda, you set up your intent handlers normally 
 Here you can see an example usage:
 
 ```javascript
-const algoliaAlexaAdapter = require('algoliaalexaadapter');
+const algoliaAlexaAdapter = require('algoliasearch-alexa');
 
 const voiceSearch = algoliaAlexaAdapter({
   algoliaAppId: 'applicationId',
@@ -58,7 +58,7 @@ Specify a key-value pair where the key is the intent handler name and the value 
 
 ##### Querying Algolia
 
-Specify a key-value pair where the key is the intent handler name and the value is an object. That object contains a function `answerWith` which will be invoked following the Algolia search. This accepts one argument: an object with values for the keys of `results` from Algolia and `intent`, `session`, and `response` from the Alexa service. 
+Specify a key-value pair where the key is the intent handler name and the value is an object. That object contains a function `answerWith` which will be invoked following the Algolia search. This accepts one argument: an object with values for the keys of `results` from Algolia and `intent`, `session`, and `response` from the Alexa service.
 
 ## Dev
 
