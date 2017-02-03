@@ -1,6 +1,6 @@
 .babelrc
 .eslintignore
 .eslintrc.js
-*.js
+src/
 !lib/
 !lib/utils/
