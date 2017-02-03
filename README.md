@@ -35,7 +35,7 @@ const voiceSearch = algoliaAlexaAdapter({
     SearchProductIntent: {
       answerWith: function (data) {
         if(data.results.length) {
-          this.emit(':tell', `There were ${data.results.length} producs found.`);
+          this.emit(':tell', `There were ${data.results.hits.length} producs found.`);
         } else {
           this.emit(':tell', 'We could find no products. Please try again.');
         }
@@ -69,11 +69,11 @@ Each handler can be configured in one of two ways. How it's configured depends o
 
 ##### Without Querying Algolia
 
-Specify a key-value pair where the key is the intent handler name and the value is a function. The function will accept three arguments: `intent`, `session`, and `response`, which are provided by the Alexa service via Lambda.
+Specify a key-value pair where the key is the intent handler name and the value is a function. The function will accept no arguments, but has the current request information bound to `this`, provided by the Alexa service via Lambda.
 
 ##### Querying Algolia
 
-Specify a key-value pair where the key is the intent handler name and the value is an object. That object contains a function `answerWith` which will be invoked following the Algolia search. This accepts one argument: an object with values for the keys of `results` from Algolia and `intent`, `session`, and `response` from the Alexa service.
+Specify a key-value pair where the key is the intent handler name and the value is an object. That object contains a function `answerWith` which will be invoked following the Algolia search. This accepts one argument: an object with values for the keys of `results` from Algolia and `event` from the Alexa service.
 
 ## Dev
 
