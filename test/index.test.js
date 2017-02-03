@@ -101,7 +101,9 @@ describe('handlers', () => {
       describe('when handler is invoked', () => {
         it('searches Algolia', () => {
           const expectedQuery = 'query';
-          buildHandlers(handlers, index).spyIntent({slots: {query: {value: expectedQuery}}});
+          const scope = {event: {request: {intent: {slots: {query: {value: expectedQuery}}}}}};
+          const builtHandlers = buildHandlers(handlers, index);
+          builtHandlers.spyIntent.call(scope);
           expect(searchSpy).toHaveBeenCalledWith(expectedQuery);
         });
       });

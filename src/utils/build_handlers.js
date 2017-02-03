@@ -12,13 +12,13 @@ export default function buildHandlers (handlersObj, index) {
       return handlersObj[key];
     } else if (hasAnswerWith(handlersObj[key])) {
       const func = handlersObj[key].answerWith;
-      handlersObj[key] = function(intent, session, response) {
-        const args = {intent, session, response};
+      handlersObj[key] = function() {
+        const args = {event: this.event};
         index
-          .search(intent.slots.query.value)
-          .then((err, content) => {
-            Object.assign(args, {err, content});
-            func(args);
+          .search(args.event.request.intent.slots.query.value)
+          .then((results, err) => {
+            Object.assign(args, {err, results});
+            func.call(this, args);
           });
       };
       return handlersObj[key];
