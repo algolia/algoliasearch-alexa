@@ -22,20 +22,20 @@ Developed to be used on Amazon Lambda, you set up your intent handlers normally 
 Here you can see an example usage:
 
 ```javascript
-const algoliaAlexaAdapter = require('algoliasearch-alexa');
+const algoliaAlexaAdapter = require('algoliasearch-alexa').default;
 
 const voiceSearch = algoliaAlexaAdapter({
   algoliaAppId: 'applicationId',
   algoliaApiKey: 'publicSearchKey',
   defaultIndexName: 'products',
   handlers: {
-    onLaunch(launchRequest, session, response) {
+    LaunchRequest (launchRequest, session, response) {
       this.emit(':tell', 'Welcome to the skill!')
     },
     SearchProductIntent: {
       answerWith: function (data) {
         if(data.results.length) {
-          this.emit(':tell', `There were ${data.results.hits.length} producs found.`);
+          this.emit(':tell', `There were ${data.results.hits.length} products found.`);
         } else {
           this.emit(':tell', 'We could find no products. Please try again.');
         }
@@ -50,6 +50,10 @@ const voiceSearch = algoliaAlexaAdapter({
 
 module.exports = voiceSearch;
 ```
+
+## Quick start guide
+
+Follow [this guide](quickstart.md) to quickly start with Algolia and Alexa.
 
 ## API Description
 
