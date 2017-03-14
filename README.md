@@ -29,7 +29,7 @@ const voiceSearch = algoliaAlexaAdapter({
   algoliaApiKey: 'publicSearchKey',
   defaultIndexName: 'products',
   handlers: {
-    onLaunch(launchRequest, session, response) {
+    LaunchRequest (launchRequest, session, response) {
       this.emit(':tell', 'Welcome to the skill!')
     },
     SearchProductIntent: {
@@ -51,7 +51,7 @@ const voiceSearch = algoliaAlexaAdapter({
 module.exports = voiceSearch;
 ```
 
-## Quick start guide
+## Quickstart guide
 
 Follow [this guide](quickstart.md) to quickly start with Algolia and Alexa.
 
