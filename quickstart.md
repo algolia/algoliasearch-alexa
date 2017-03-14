@@ -1,6 +1,6 @@
-# Quickstart Guide
+# Quick start Guide
 
-To start, create an [Algolia account](https://algolia.com) and index with your data. To learn more about getting up and running, view the [Algolia documentation](https://algolia.com/doc) and the [quickstart guide](https://www.algolia.com/doc/guides/getting-started/quick-start/).
+To start, create an [Algolia account](https://algolia.com) and index with your data. To learn more about getting up and running, view the [Algolia documentation](https://algolia.com/doc) and the [quick start guide](https://www.algolia.com/doc/guides/getting-started/quick-start/).
 
 ## Setting up Lambda
 

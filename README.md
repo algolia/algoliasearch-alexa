@@ -51,7 +51,7 @@ const voiceSearch = algoliaAlexaAdapter({
 module.exports = voiceSearch;
 ```
 
-## Quickstart guide
+## Quick start guide
 
 Follow [this guide](quickstart.md) to quickly start with Algolia and Alexa.
 
