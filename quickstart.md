@@ -1,6 +1,6 @@
 # Quickstart Guide
 
-To start, create an [Algolia account](https://algolia.com) and index with your data. To learn more about getting up and running, view the [Algolia documentation](https://algolia.com/docs).
+To start, create an [Algolia account](https://algolia.com) and index with your data. To learn more about getting up and running, view the [Algolia documentation](https://algolia.com/doc) and the [quickstart guide](https://www.algolia.com/doc/guides/getting-started/quick-start/).
 
 ## Setting up Lambda
 
@@ -64,7 +64,7 @@ Most intents, however, will have slots. A slot is like an argument for the inten
 
 **Very important to note**: currently for the Alexa adaptor the slot name **must** be `query` and we can have just the single slot. This is what will be passed to Algolia and will be searched for in the specified index.
 
-Fill out the custom slot types if necessary, and follow with the sample utterances. 
+Fill out the custom slot types if necessary, and follow with the sample utterances.
 
 ### Sample utterances
 
@@ -137,13 +137,13 @@ module.exports = voiceSearch;
 
 Notice the synchronicity between our handler name and our intent schema. (`GetListingsIntent` in both.)
 
-Next, zip up both the `index.js` file and `node_modules` directory *without* zipping them into a directory themselves.
+Next, *without* zipping them into a directory themselves, zip up both the `index.js` file and `node_modules` directory. By default, when going through the GUI, whatever we want to zip is put into a directory, which causes an error that's not immediately obvious. We'll avoid that by going through the terminal:
 
 ```bash
 $ zip files.zip index.js -r node_modules/
 ```
 
-In the **Code** tab of the Lambda function manager, select **Upload a .ZIP file** for the code entry type and upload our new zip file. Click on the **Save and Test** button. A modal will appear that allow you to create a JSON payload that mimic what your Lambda function will receive from the Alexa Skills service.
+In the **Code** tab of the Lambda function manager, select **Upload a .ZIP file** for the code entry type and upload our new zip file. Click on the **Save and Test** button. A modal will appear that allow you to create a JSON payload that mimics what your Lambda function will receive from the Alexa Skills service.
 
 You can create this payload by going to the **Test** section of the skill setup section of your Amazon Developer Console and typing in an utterance. You do not need to preface it with `ask {invocation name}`. The JSON payload will appear below as the Lambda Request. Copy that and paste it in the modal and hit **Save and Test** at the bottom.
 
