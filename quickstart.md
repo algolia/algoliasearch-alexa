@@ -112,6 +112,7 @@ const voiceSearch = algoliaAlexaAdapter({
   algoliaAppId: 'applicationId',
   algoliaApiKey: 'publicSearchKey',
   defaultIndexName: 'listings',
+  alexaAppId: 'amzn1.echo-sdk-ams.app.[unique-value-here]',
   handlers: {
     onLaunch(launchRequest, session, response) {
       this.emit(':tell', 'Welcome to the skill!')
