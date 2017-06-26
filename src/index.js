@@ -13,6 +13,7 @@ export default function algoliaAlexaAdapter (opts) {
     algoliaApiKey,
     defaultIndexName,
     handlers,
+    alexaAppId,
     algoliasearch = searchConstructor,
     Alexa = AlexaSDK,
   } = opts;
@@ -39,6 +40,7 @@ export default function algoliaAlexaAdapter (opts) {
 
   skill.handler = function(event, context) {
     const alexa = Alexa.handler(event, context);
+    alexa.appId = alexaAppId;
     alexa.registerHandlers(buildHandlers(handlers, index));
     alexa.execute();
   };

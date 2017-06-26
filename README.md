@@ -28,6 +28,7 @@ const voiceSearch = algoliaAlexaAdapter({
   algoliaAppId: 'applicationId',
   algoliaApiKey: 'publicSearchKey',
   defaultIndexName: 'products',
+  alexaAppId: 'amzn1.echo-sdk-ams.app.[unique-value-here]',
   handlers: {
     LaunchRequest (launchRequest, session, response) {
       this.emit(':tell', 'Welcome to the skill!')
@@ -61,11 +62,12 @@ Follow [this guide](quickstart.md) to quickly start with Algolia and Alexa.
 
 This function accepts a single argument, which is a configuration object.
 
-This configuration object requires:
- - `algoliaAppId`: The app ID from your Algolia application
- - `algoliaApiKey`: The public search key associated with your Algolia application
- - `defaultIndexName`: The index you want to query on Algolia
- - `handlers`: An object with your standard request (`LaunchRequest`, `IntentRequest`, or `SessionEndedRequest`) or built-in and intent handlers
+This configuration object accepts:
+ - `algoliaAppId`: The app ID from your Algolia application **(required)**
+ - `algoliaApiKey`: The public search key associated with your Algolia application **(required)**
+ - `alexaAppId`: Used to verify that the request is coming from your Alexa Skill, responding with an error if defined and requesting application does not match this ID; optional but recommended
+ - `defaultIndexName`: The index you want to query on Algolia **(required)**
+ - `handlers`: An object with your standard request (`LaunchRequest`, `IntentRequest`, or `SessionEndedRequest`) or built-in and intent handlers **(required)**
 
 #### Handlers Configuration
 
