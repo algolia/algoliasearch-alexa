@@ -3,6 +3,7 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Algolia Alexa Skills Kit Adapter](#algolia-alexa-skills-kit-adapter)
+  - [Quick start guide](#quick-start-guide)
   - [API Description](#api-description)
     - [algoliaAlexaAdapter](#algoliaalexaadapter)
       - [Handlers Configuration](#handlers-configuration)
