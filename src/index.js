@@ -2,6 +2,7 @@ import AlexaSDK from 'alexa-sdk';
 import EventEmitter from 'events';
 import searchConstructor from 'algoliasearch';
 import buildHandlers from './utils/build_handlers.js';
+import versionNumber from './version.js';
 
 export default function algoliaAlexaAdapter (opts) {
   if (!opts) {
@@ -36,6 +37,7 @@ export default function algoliaAlexaAdapter (opts) {
 
   const skill = new EventEmitter();
   const client = algoliasearch(algoliaAppId, algoliaApiKey);
+  client.addAlgoliaAgent(`Alexa Skills Kit Adapter ${versionNumber}`);
   const index = client.initIndex(defaultIndexName);
 
   skill.handler = function(event, context) {
