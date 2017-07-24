@@ -33,6 +33,6 @@ console.log(colors, `Updating ${versionSrc}`);
 const newContent = `export default ${newVersion}`;
 fs.writeFileSync(versionSrc, newContent);
 
-console.log(colors, `Updating package.json, npm-shrinkwrap.json`);
+console.log(colors, `Updating package.json`);
 
 mversion.update(newVersion);
