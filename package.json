@@ -1,6 +1,6 @@
 {
   "name": "algoliasearch-alexa",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "AlgoliaSearch Alexa Skills Kit Adapter",
   "main": "lib/index.js",
   "browser": {},
