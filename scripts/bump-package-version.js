@@ -29,7 +29,7 @@ const colors = '\x1b[44m\x1b[37m%s\x1b[0m';
 console.log(colors, `Releasing ${newVersion}`);
 console.log(colors, `Updating ${versionSrc}`);
 
-const newContent = `export default ${newVersion}`;
+const newContent = `export default '${newVersion}';`;
 fs.writeFileSync(`${__dirname}/${versionSrc}`, newContent);
 
 console.log(colors, 'Updating package.json');
