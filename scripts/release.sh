@@ -23,7 +23,7 @@ if [[ $# -eq 0 ]] ; then
   exit 1
 fi
 
-$1 babel-node ./scripts/bump-package-version.js
+VERSION=$1 babel-node ./scripts/bump-package-version.js
 conventional-changelog --infile CHANGELOG.md --same-file --preset angular
 doctoc README.md
 git commit -am "$(json -f package.json version)"
