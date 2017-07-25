@@ -1,13 +1,12 @@
 /* eslint-disable no-console */
 
 import fs from 'fs';
-import path from 'path';
 
 import mversion from 'mversion';
 import semver from 'semver';
 
 const versionSrc = '../src/version.js';
-import currentVersion from versionSrc;
+import currentVersion from '../src/version.js';
 
 if (!process.env.VERSION) {
   throw new Error('release: usage is VERSION=MAJOR.MINOR.PATCH npm run release');
@@ -25,14 +24,14 @@ if (semver.gte(currentVersion, newVersion)) {
   );
 }
 
-const colors = `\x1b[44m\x1b[37m%s\x1b[0m`;
+const colors = '\x1b[44m\x1b[37m%s\x1b[0m';
 
 console.log(colors, `Releasing ${newVersion}`);
 console.log(colors, `Updating ${versionSrc}`);
 
 const newContent = `export default ${newVersion}`;
-fs.writeFileSync(versionSrc, newContent);
+fs.writeFileSync(`${__dirname}/${versionSrc}`, newContent);
 
-console.log(colors, `Updating package.json`);
+console.log(colors, 'Updating package.json');
 
 mversion.update(newVersion);
