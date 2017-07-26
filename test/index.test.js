@@ -8,6 +8,7 @@ import buildHandlers from '../src/utils/build_handlers.js';
 
 const algoliasearch = jest.fn(() => ({
   initIndex () {},
+  addAlgoliaAgent () {},
 }));
 
 const Alexa = {
