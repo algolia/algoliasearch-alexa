@@ -11,7 +11,7 @@ export default function buildParams (params, event) {
 
   for (const prop in params) {
     if (params.hasOwnProperty(prop)) {
-      if (isFunction(prop)) {
+      if (isFunction(params[prop])) {
         params[prop] = params[prop](event);
       }
     }

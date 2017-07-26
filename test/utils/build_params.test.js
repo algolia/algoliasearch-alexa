@@ -58,4 +58,34 @@ describe('buildParams', () => {
       }).toThrow();
     });
   });
+
+  describe('when an object is specified', () => {
+    describe('when values are all strings', () => {
+      it('returns the object as is', () => {
+        const params = {
+          page: 10,
+          hitsPerPage: 12,
+        };
+        expect(buildParams(params)).toEqual(params);
+      });
+    });
+
+    describe('when a value is a function', () => {
+      it('returns as a value the return value of that function', () => {
+        const params = {
+          page: 10,
+          hitsPerPage (requestBody) {
+            return requestBody.request.intent.slots.num.value;
+          },
+        };
+        const body = {request: {intent: {slots: {num: {value: 12}}}}};
+        const expected = {
+          page: 10,
+          hitsPerPage: 12,
+        };
+
+        expect(buildParams(params, body)).toEqual(expected);
+      });
+    });
+  });
 });
