@@ -1,9 +1,7 @@
-function isFunction(obj) {
-  return typeof obj === 'function';
-}
+import {isFunction, isObject} from './is_of_type.js';
 
 function hasAnswerWith(obj) {
-  return typeof obj === 'object' && obj.answerWith;
+  return isObject(obj) && obj.answerWith;
 }
 
 export default function buildHandlers (handlersObj, index) {
