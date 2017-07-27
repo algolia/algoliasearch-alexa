@@ -91,6 +91,10 @@ Specify a key-value pair where the key is the intent handler name and the value 
 
 Specify a key-value pair where the key is the intent handler name and the value is an object. That object contains a function `answerWith` which will be invoked following the Algolia search. This accepts one argument: an object with values for the keys of `results` from Algolia and `event` from the Alexa service.
 
+#### Localization
+
+You can set your localization strings via the `languageStrings` option on the top level object. Within the intents, you will invoke them with `this.t` as normal. [See here for more information](https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs#adding-multi-language-support-for-skill) on localizing a skill.
+
 ## Dev
 
 ```
