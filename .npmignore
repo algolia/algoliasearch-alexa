@@ -2,5 +2,7 @@
 .eslintignore
 .eslintrc.js
 src/
+test/
+quickstart.md
 !lib/
 !lib/utils/
