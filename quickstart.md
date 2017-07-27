@@ -51,8 +51,11 @@ Now that we have our Lambda function set up, we need to set up our Alexa Skill t
       ]
     },
     {
-      "intent": "CustomHelpIntent",
+      "intent": "FreshnessIntent",
       "slots": []
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
     },
     {
       "intent": "AMAZON.CancelIntent"
@@ -73,7 +76,7 @@ Now that we have our Lambda function set up, we need to set up our Alexa Skill t
 }
 ```
 
-An intent like our `CustomHelpIntent`, which has a very simple interaction model (e.g. `How can I use this skill?`), has no slots.
+An intent like our `FreshnessIntent`, which has a very simple interaction model (e.g. `When were the listings last updated?`), has no slots.
 
 Most intents, however, will have slots. A slot is like an argument for the intent. For example, our `GetListingsIntent` could be invoked by `What homes are available for sale in Houston?` or `What homes are available for sale in Tulsa?`. New slot types are being added often and more information can be [found here](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference) and [here](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/migrating-to-the-improved-built-in-and-custom-slot-types).
 
@@ -92,22 +95,10 @@ GetListingsIntent {query} homes available
 GetListingsIntent {query} homes for sale
 GetListingsIntent what homes are for sale in {query}
 
-CustomHelpIntent help
-CustomHelpIntent help me
-CustomHelpIntent what can I ask you
-CustomHelpIntent get help
-CustomHelpIntent to help
-CustomHelpIntent to help me
-CustomHelpIntent what commands can I ask
-CustomHelpIntent what commands can I say
-CustomHelpIntent what can I do
-CustomHelpIntent what can I use this for
-CustomHelpIntent what questions can I ask
-CustomHelpIntent what can you do
-CustomHelpIntent what do you do
-CustomHelpIntent how do I use you
-CustomHelpIntent how can I use you
-CustomHelpIntent what can you tell me
+FreshnessIntent when were the listings last updated
+FreshnessIntent when the listings were last updated
+FreshnessIntent to tell me when listings were updated last
+FreshnessIntent the date of the last update
 ```
 
 Here we have the name of the intent on the left, the utterance on the right, and the slot in curly braces. You can find more information on sample utterances in [the Amazon documentation](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/defining-the-voice-interface#h2_sample_utterances).
