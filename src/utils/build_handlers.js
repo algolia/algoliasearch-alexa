@@ -1,8 +1,8 @@
-import {isFunction, isObject} from './is_of_type.js';
+import {isFunction} from './is_of_type.js';
 import buildParams from './build_params.js';
 
 function hasAnswerWith(obj) {
-  return isObject(obj) && obj.answerWith;
+  return obj && obj.answerWith !== undefined;
 }
 
 export default function buildHandlers (handlersObj, index) {
