@@ -31,7 +31,7 @@ const voiceSearch = algoliaAlexaAdapter({
   defaultIndexName: 'products',
   alexaAppId: 'amzn1.echo-sdk-ams.app.[unique-value-here]',
   handlers: {
-    LaunchRequest (launchRequest, session, response) {
+    LaunchRequest () {
       this.emit(':tell', 'Welcome to the skill!')
     },
     SearchProductIntent: {
@@ -42,10 +42,19 @@ const voiceSearch = algoliaAlexaAdapter({
           this.emit(':tell', 'We could find no products. Please try again.');
         }
       },
+      params: {
+        hitsPerPage: 1,
+        filters: function (requestBody) {
+          return `brand:${requestBody.request.intent.slots.brand.value}`;
+        }
+      },
     },
-    CustomHelpIntent: function (intent, session, response) {
+    CustomHelpIntent: function () {
       const speechOutput = 'Find one of 10,000 products from the Product Store, powered by Algolia.';
       this.emit(':ask', speechOutput);
+    },
+    Unhandled: function () {
+      this.emit(':ask', 'Look for products in the Product Store.');
     },
   },
 });

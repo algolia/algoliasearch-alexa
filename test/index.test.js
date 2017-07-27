@@ -8,6 +8,7 @@ import buildHandlers from '../src/utils/build_handlers.js';
 
 const algoliasearch = jest.fn(() => ({
   initIndex () {},
+  addAlgoliaAgent () {},
 }));
 
 const Alexa = {
@@ -84,12 +85,45 @@ describe('handlers', () => {
   const index = {
     search: searchSpy,
   };
+
   const handlers = {
     LaunchRequest () {},
     spyIntent: {
       answerWith () {},
     },
+    withParamsIntent: {
+      answerWith () {},
+      params: {
+        page: 10,
+      },
+    },
+    withParamsWithFunctionIntent: {
+      answerWith () {},
+      params: {
+        page (requestBody) {
+          return requestBody.request.intent.slots.page.value;
+        },
+      },
+    },
     unChangedIntent () {},
+  };
+  const builtHandlers = buildHandlers(handlers, index);
+  const expectedQuery = 'query';
+  const scope = {
+    event: {
+      request: {
+        intent: {
+          slots: {
+            query: {
+              value: expectedQuery,
+            },
+            page: {
+              value: 5,
+            },
+          },
+        },
+      },
+    },
   };
 
   beforeEach(() => {
@@ -97,14 +131,49 @@ describe('handlers', () => {
   });
 
   describe('when intent handler is specified', () => {
-    describe('with answerWith', () => {
-      describe('when handler is invoked', () => {
-        it('searches Algolia', () => {
-          const expectedQuery = 'query';
-          const scope = {event: {request: {intent: {slots: {query: {value: expectedQuery}}}}}};
-          const builtHandlers = buildHandlers(handlers, index);
-          builtHandlers.spyIntent.call(scope);
-          expect(searchSpy).toHaveBeenCalledWith(expectedQuery);
+    describe('is an object', () => {
+      describe('with answerWith', () => {
+        describe('without params to merge', () => {
+          describe('when handler is invoked', () => {
+            it('searches Algolia', () => {
+              const expectedParams = {};
+
+              builtHandlers.spyIntent.call(scope);
+
+              expect(searchSpy).toHaveBeenCalledWith(expectedQuery, expectedParams);
+            });
+          });
+        });
+
+        describe('with params to merge', () => {
+          describe('when handler is invoked', () => {
+            it('searches Algolia with params', () => {
+              const expectedParams = {page: 10};
+
+              builtHandlers.withParamsIntent.call(scope);
+
+              expect(searchSpy).toHaveBeenCalledWith(expectedQuery, expectedParams);
+            });
+          });
+
+          describe('with params with function', () => {
+            const expectedParams = {page: 5};
+
+            builtHandlers.withParamsWithFunctionIntent.call(scope);
+
+            expect(searchSpy).toHaveBeenCalledWith(expectedQuery, expectedParams);
+          });
+        });
+      });
+
+      describe('without answerWith', () => {
+        it('throws an error', () => {
+          const newHandlers = {withoutAnswerWithIntent: {}};
+          Object.assign(newHandlers, handlers);
+
+          expect(() => {
+            buildHandlers(newHandlers, index);
+          }).toThrow();
         });
       });
     });

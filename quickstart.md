@@ -47,28 +47,50 @@ Now that we have our Lambda function set up, we need to set up our Alexa Skill t
         {
           "name": "query",
           "type": "AMAZON.US_CITY"
+        },
+        {
+          "name": "available",
+          "type": "AMAZON.DATE"
         }
       ]
     },
     {
-      "intent": "CustomHelpIntent",
+      "intent": "FreshnessIntent",
       "slots": []
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.StartOverIntent"
+    },
+    {
+      "intent": "AMAZON.NoIntent"
+    },
+    {
+      "intent": "AMAZON.YesIntent"
     }
   ]
 }
 ```
 
-An intent like our `CustomHelpIntent`, which has a very simple interaction model (e.g. `How can I use this skill?`), has no slots.
+An intent like our `FreshnessIntent`, which has a very simple interaction model (e.g. `When were the listings last updated?`), has no slots.
 
-Most intents, however, will have slots. A slot is like an argument for the intent. For example, our `GetListingsIntent` could be invoked by `What homes are available for sale in Houston?` or `What homes are available for sale in Tulsa?`. New slot types are being added often and more information can be [found here](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference) and [here](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/migrating-to-the-improved-built-in-and-custom-slot-types).
+Most intents, however, will have slots. A slot is like an argument for the intent. For example, our `GetListingsIntent` could be invoked by `What homes are available for sale in Houston?`, `What homes are available for sale in Tulsa?`, or `What new homes in Little Rock are available starting next week?`. New slot types are being added often and more information can be [found here](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference) and [here](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/migrating-to-the-improved-built-in-and-custom-slot-types).
 
-**Very important to note**: currently for the Alexa adaptor the slot name **must** be `query` and we can have just the single slot. This is what will be passed to Algolia and will be searched for in the specified index.
+**Very important to note**: currently for the Alexa adaptor the slot name for the full text search **must** be `query`. This is what will be passed to Algolia and will be searched for in the specified index. Other slots can be used for search parameters, as we'll see below.
 
 Fill out the custom slot types if necessary, and follow with the sample utterances.
 
 ### Sample utterances
 
-Sample utterances are the "training set" for Alexa to understand how people might interact with the skill. For our intent schema above, we might have the following sample utterances:
+Sample utterances are the "training set" for Alexa to understand how people might interact with the skill. For our intent schema above, we might have the following sample utterances (truncated for length):
 
 ```
 GetListingsIntent what homes are available in {query}
@@ -76,26 +98,18 @@ GetListingsIntent homes in {query}
 GetListingsIntent {query} homes available
 GetListingsIntent {query} homes for sale
 GetListingsIntent what homes are for sale in {query}
+GetListingsIntent what homes are available in {query} available starting {available}
+GetListingsIntent homes in {query} available starting {available}
+GetListingsIntent {query} homes available available starting {available}
+GetListingsIntent {query} homes for sale available starting {available}
 
-CustomHelpIntent help
-CustomHelpIntent help me
-CustomHelpIntent what can I ask you
-CustomHelpIntent get help
-CustomHelpIntent to help
-CustomHelpIntent to help me
-CustomHelpIntent what commands can I ask
-CustomHelpIntent what commands can I say
-CustomHelpIntent what can I do
-CustomHelpIntent what can I use this for
-CustomHelpIntent what questions can I ask
-CustomHelpIntent what can you do
-CustomHelpIntent what do you do
-CustomHelpIntent how do I use you
-CustomHelpIntent how can I use you
-CustomHelpIntent what can you tell me
+FreshnessIntent when were the listings last updated
+FreshnessIntent when the listings were last updated
+FreshnessIntent to tell me when listings were updated last
+FreshnessIntent the date of the last update
 ```
 
-Here we have the name of the intent on the left, the utterance on the right, and the slot in curly braces. You can find more information on sample utterances in [the Amazon documentation](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/defining-the-voice-interface#h2_sample_utterances).
+Here we have the name of the intent on the left, the utterance on the right, and the slot(s) in curly braces. You can find more information on sample utterances in [the Amazon documentation](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/defining-the-voice-interface#h2_sample_utterances).
 
 Save that, and on the next screen select the radio button for **AWS Lambda ARN (Amazon Resource Name)**, select the region you selected for your Lambda function, and paste in the ARN from your Lambda function. The ARN can be found in the upper-righthand corner on the Lambda function page.
 
@@ -125,9 +139,14 @@ const voiceSearch = algoliaAlexaAdapter({
           this.emit(':tell', 'We could find no listings. Please try again.');
         }
       },
+      params: {
+        filters: function (requestBody) {
+          return `available:${requestBody.request.intent.slots.available.value}`;
+        }
+      },
     },
-    CustomHelpIntent: function (intent, session, response) {
-      const speechOutput = 'Find one of thousands of listings from the Listing Store, powered by Algolia.';
+    FreshnessIntent: function (intent, session, response) {
+      const speechOutput = 'Listings on the listing store are updated every day. What city are you looking for?';
       this.emit(':ask', speechOutput);
     },
   },
