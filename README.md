@@ -53,6 +53,9 @@ const voiceSearch = algoliaAlexaAdapter({
       const speechOutput = 'Find one of 10,000 products from the Product Store, powered by Algolia.';
       this.emit(':ask', speechOutput);
     },
+    Unhandled: function () {
+      this.emit(':ask', 'Look for products in the Product Store.');
+    },
   },
 });
 
