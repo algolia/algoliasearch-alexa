@@ -21,11 +21,11 @@ describe('isObject', () => {
 });
 
 describe('isFunction', () => {
-  it('return true if an object', () => {
+  it('return true if a function', () => {
     expect(isFunction(() => {})).toEqual(true);
   });
 
-  it('return false if not an object', () => {
+  it('return false if not a function', () => {
     expect(isFunction({})).toEqual(false);
   });
 });
