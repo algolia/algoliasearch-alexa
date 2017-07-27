@@ -53,6 +53,21 @@ Now that we have our Lambda function set up, we need to set up our Alexa Skill t
     {
       "intent": "CustomHelpIntent",
       "slots": []
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.StartOverIntent"
+    },
+    {
+      "intent": "AMAZON.NoIntent"
+    },
+    {
+      "intent": "AMAZON.YesIntent"
     }
   ]
 }
