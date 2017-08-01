@@ -41,8 +41,8 @@ export default function algoliaAlexaAdapter (opts) {
   client.addAlgoliaAgent(`Alexa Skills Kit Adapter ${versionNumber}`);
   const index = client.initIndex(defaultIndexName);
 
-  skill.handler = function(event, context) {
-    const alexa = Alexa.handler(event, context);
+  skill.handler = function(event, context, callback) {
+    const alexa = Alexa.handler(event, context, callback);
     alexa.appId = alexaAppId;
     if (languageStrings) {
       alexa.resources = languageStrings;
