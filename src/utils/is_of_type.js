@@ -6,5 +6,6 @@ function isOfType(signature) {
 
 const isObject = isOfType('[object Object]');
 const isFunction = isOfType('[object Function]');
+const isArray = isOfType('[object Array]');
 
-export {isOfType, isObject, isFunction};
+export {isOfType, isObject, isFunction, isArray};

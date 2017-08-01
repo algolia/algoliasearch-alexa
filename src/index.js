@@ -19,6 +19,8 @@ export default function algoliaAlexaAdapter (opts) {
     Alexa = AlexaSDK,
   } = opts;
 
+  const _StateString = Alexa.StateString;
+
   if (algoliaAppId === undefined) {
     throw new Error('Must initialize with algoliaAppId');
   }
@@ -46,7 +48,7 @@ export default function algoliaAlexaAdapter (opts) {
     if (languageStrings) {
       alexa.resources = languageStrings;
     }
-    alexa.registerHandlers(buildHandlers(handlers, index));
+    alexa.registerHandlers(...buildHandlers(handlers, index, _StateString));
     alexa.execute();
   };
 
