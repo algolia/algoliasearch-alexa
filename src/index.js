@@ -1,5 +1,4 @@
 import AlexaSDK from 'alexa-sdk';
-import EventEmitter from 'events';
 import searchConstructor from 'algoliasearch';
 import buildHandlers from './utils/build_handlers.js';
 import versionNumber from './version.js';
@@ -36,7 +35,7 @@ export default function algoliaAlexaAdapter (opts) {
     throw new Error('Must initialize with handlers');
   }
 
-  const skill = new EventEmitter();
+  const skill = {};
   const client = algoliasearch(algoliaAppId, algoliaApiKey);
   client.addAlgoliaAgent(`Alexa Skills Kit Adapter ${versionNumber}`);
   const index = client.initIndex(defaultIndexName);
