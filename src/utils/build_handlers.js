@@ -48,15 +48,11 @@ function buildFromArray(arr, index, stateString) {
 }
 
 export default function buildHandlers (handlers, index, stateString) {
-  let result;
-
   if (isArray(handlers)) {
-    result = buildFromArray(handlers, index, stateString);
+    return buildFromArray(handlers, index, stateString);
   } else if (isObject(handlers)) {
-    result = buildFromObject(handlers, index, stateString);
+    return buildFromObject(handlers, index, stateString);
   } else {
     throw new Error('Handlers must be either an array or an object.');
   }
-
-  return result;
 }
