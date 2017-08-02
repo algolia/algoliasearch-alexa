@@ -5,7 +5,7 @@ function hasAnswerWith(obj) {
   return obj && obj.answerWith !== undefined;
 }
 
-function buildFromObject(obj, index, STATE_STRING) {
+function buildFromObject(obj, index, stateString) {
   const result = Object.keys(obj).reduce((object, key) => {
     if (key === 'state') {
       return object;
@@ -36,26 +36,26 @@ function buildFromObject(obj, index, STATE_STRING) {
     }
   }, {});
 
-  delete result.STATE_STRING;
+  delete result.stateString;
 
-  Object.defineProperty(result, STATE_STRING, {
+  Object.defineProperty(result, stateString, {
     value: obj.state || '',
   });
 
   return [result];
 }
 
-function buildFromArray(arr, index, STATE_STRING) {
-  return arr.map(obj => buildFromObject(obj, index, STATE_STRING)[0]);
+function buildFromArray(arr, index, stateString) {
+  return arr.map(obj => buildFromObject(obj, index, stateString)[0]);
 }
 
-export default function buildHandlers (handlers, index, STATE_STRING) {
+export default function buildHandlers (handlers, index, stateString) {
   let result;
 
   if (isArray(handlers)) {
-    result = buildFromArray(handlers, index, STATE_STRING);
+    result = buildFromArray(handlers, index, stateString);
   } else if (isObject(handlers)) {
-    result = buildFromObject(handlers, index, STATE_STRING);
+    result = buildFromObject(handlers, index, stateString);
   } else {
     throw new Error('Handlers must be either an array or an object.');
   }
