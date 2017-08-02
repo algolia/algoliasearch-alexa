@@ -95,35 +95,9 @@ Specify a key-value pair where the key is the intent handler name and the value 
 
 #### State Management
 
-State-based routing of intents can be done in a couple ways.
+States in the Alexa Skills Kit represent, roughly, different steps in the skill flow process. For example, there can be a state for starting a game, a state for being in the middle of a turn, and an empty state that represents the skill launch. You can [read more here](https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs#making-skill-state-management-simpler) at the Alexa Skills Kit SDK README.
 
-##### Manual Definition
-
-The simplest way is to append the state to the intent (e.g. `AMAZON.YesIntent_SEARCHINGMODE`) and define your handlers as above. This is, in fact, the way that the Alexa Skills Kit SDK for Node.js does it in the background.
-
-Your handlers would look something like this (truncated for brevity):
-
-```javascript
-const states = {
-  SEARCHINGMODE: '_SEARCHINGMODE'
-};
-
-const handlers = {
-  NewSession () {
-    this.handler.state = states.SEARCHINGMODE;
-    this.emit(':ask', 'Welcome to the skill! What product would you like to find?');
-  },
-  ['AMAZON.YesIntent' + states.SEARCHINGMODE]: {
-    answerWith (data) {
-      // Do something...
-    }
-  }
-};
-```
-
-##### Providing an Array
-
-Another way is to provide an array of objects, with each that you want tied to a specific state to have a key of `state`:
+To define your states for each handler, provide an array of objects, with each that you want tied to a specific state to have a key of `state`:
 
 ```javascript
 const states = {
