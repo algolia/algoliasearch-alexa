@@ -1,19 +1,24 @@
-import {isFunction} from './is_of_type.js';
+import {isFunction, isArray, isObject} from './is_of_type.js';
 import buildParams from './build_params.js';
 
 function hasAnswerWith(obj) {
   return obj && obj.answerWith !== undefined;
 }
 
-export default function buildHandlers (handlersObj, index) {
-  Object.keys(handlersObj).map(key => {
-    if (isFunction(handlersObj[key])) {
-      return handlersObj[key];
-    } else if (hasAnswerWith(handlersObj[key])) {
-      const func = handlersObj[key].answerWith;
-      const paramsObj = handlersObj[key].params;
+function buildFromObject(obj, index, stateString) {
+  const result = Object.keys(obj).reduce((object, key) => {
+    if (key === 'state') {
+      return object;
+    }
 
-      handlersObj[key] = function() {
+    if (isFunction(obj[key])) {
+      object[key] = obj[key];
+      return object;
+    } else if (hasAnswerWith(obj[key])) {
+      const func = obj[key].answerWith;
+      const paramsObj = obj[key].params;
+
+      object[key] = function() {
         const args = {event: this.event};
         const params = buildParams(paramsObj, this.event);
         index
@@ -24,12 +29,30 @@ export default function buildHandlers (handlersObj, index) {
           });
       };
 
-      return handlersObj[key];
+      return object;
     } else {
       throw new Error('Intent handler must either be a function or an object ' +
       'with key of "answerWith" which is a function.');
     }
+  }, {});
+
+  Object.defineProperty(result, stateString, {
+    value: obj.state || '',
   });
 
-  return handlersObj;
+  return [result];
+}
+
+function buildFromArray(arr, index, stateString) {
+  return arr.map(obj => buildFromObject(obj, index, stateString)[0]);
+}
+
+export default function buildHandlers (handlers, index, stateString) {
+  if (isArray(handlers)) {
+    return buildFromArray(handlers, index, stateString);
+  } else if (isObject(handlers)) {
+    return buildFromObject(handlers, index, stateString);
+  } else {
+    throw new Error('Handlers must be either an array or an object.');
+  }
 }

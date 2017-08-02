@@ -26,38 +26,40 @@ Here you can see an example usage:
 ```javascript
 const algoliaAlexaAdapter = require('algoliasearch-alexa').default;
 
+const handlers = {
+  LaunchRequest () {
+    this.emit(':tell', 'Welcome to the skill!');
+  },
+  SearchProductIntent: {
+    answerWith (data) {
+      if(data.results.length) {
+        this.emit(':tell', `There were ${data.results.hits.length} products found.`);
+      } else {
+        this.emit(':tell', 'We could find no products. Please try again.');
+      }
+    },
+    params: {
+      hitsPerPage: 1,
+      filters (requestBody) {
+        return `brand:${requestBody.request.intent.slots.brand.value}`;
+      }
+    },
+  },
+  CustomHelpIntent () {
+    const speechOutput = 'Find one of 10,000 products from the Product Store, powered by Algolia.';
+    this.emit(':ask', speechOutput);
+  },
+  Unhandled () {
+    this.emit(':ask', 'Look for products in the Product Store.');
+  },
+};
+
 const voiceSearch = algoliaAlexaAdapter({
   algoliaAppId: 'applicationId',
   algoliaApiKey: 'publicSearchKey',
   defaultIndexName: 'products',
   alexaAppId: 'amzn1.echo-sdk-ams.app.[unique-value-here]',
-  handlers: {
-    LaunchRequest () {
-      this.emit(':tell', 'Welcome to the skill!')
-    },
-    SearchProductIntent: {
-      answerWith: function (data) {
-        if(data.results.length) {
-          this.emit(':tell', `There were ${data.results.hits.length} products found.`);
-        } else {
-          this.emit(':tell', 'We could find no products. Please try again.');
-        }
-      },
-      params: {
-        hitsPerPage: 1,
-        filters: function (requestBody) {
-          return `brand:${requestBody.request.intent.slots.brand.value}`;
-        }
-      },
-    },
-    CustomHelpIntent: function () {
-      const speechOutput = 'Find one of 10,000 products from the Product Store, powered by Algolia.';
-      this.emit(':ask', speechOutput);
-    },
-    Unhandled: function () {
-      this.emit(':ask', 'Look for products in the Product Store.');
-    },
-  },
+  handlers,
 });
 
 module.exports = voiceSearch;
@@ -91,6 +93,34 @@ Specify a key-value pair where the key is the intent handler name and the value 
 ##### Querying Algolia
 
 Specify a key-value pair where the key is the intent handler name and the value is an object. That object contains a function `answerWith` which will be invoked following the Algolia search. This accepts one argument: an object with values for the keys of `results` from Algolia and `event` from the Alexa service.
+
+#### State Management
+
+States in the Alexa Skills Kit represent, roughly, different steps in the skill flow process. For example, there can be a state for starting a game, a state for being in the middle of a turn, and an empty state that represents the skill launch. You can [read more here](https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs#making-skill-state-management-simpler) at the Alexa Skills Kit SDK README.
+
+To define your states for each handler, provide an array of objects, with each that you want tied to a specific state to have a key of `state`:
+
+```javascript
+const states = {
+  SEARCHINGMODE: '_SEARCHINGMODE'
+};
+
+const handlers = [
+  {
+    NewSession () {
+      this.handler.state = states.SEARCHINGMODE;
+      this.emit(':ask', 'Welcome to the skill! What product would you like to find?');
+    },
+  }, {
+    state: states.SEARCHINGMODE,
+    'AMAZON.YesIntent': {
+      answerWith (data) {
+        // Do something...
+      }
+    }
+  }
+];
+```
 
 #### Localization
 
