@@ -9,6 +9,7 @@
       - [Handlers Configuration](#handlers-configuration)
         - [Without Querying Algolia](#without-querying-algolia)
         - [Querying Algolia](#querying-algolia)
+      - [State Management](#state-management)
       - [Localization](#localization)
   - [Dev](#dev)
   - [Linting](#linting)
