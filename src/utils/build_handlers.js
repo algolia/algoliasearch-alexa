@@ -36,8 +36,6 @@ function buildFromObject(obj, index, stateString) {
     }
   }, {});
 
-  delete result.stateString;
-
   Object.defineProperty(result, stateString, {
     value: obj.state || '',
   });
