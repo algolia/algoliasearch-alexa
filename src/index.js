@@ -15,6 +15,7 @@ export default function algoliaAlexaAdapter (opts) {
     handlers,
     alexaAppId,
     languageStrings,
+    dynamoDBTableName,
     algoliasearch = searchConstructor,
     Alexa = AlexaSDK,
   } = opts;
@@ -45,6 +46,7 @@ export default function algoliaAlexaAdapter (opts) {
   skill.handler = function(event, context, callback) {
     const alexa = Alexa.handler(event, context, callback);
     alexa.appId = alexaAppId;
+    alexa.dynamoDBTableName = dynamoDBTableName;
     if (languageStrings) {
       alexa.resources = languageStrings;
     }
