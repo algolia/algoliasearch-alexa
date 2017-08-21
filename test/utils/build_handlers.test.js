@@ -84,10 +84,19 @@ describe('handlers', () => {
 
       describe('with answerWith', () => {
         describe('without params to merge', () => {
+          const expectedParams = {};
+
+          describe('without a query slot', () => {
+            const withoutQuery = JSON.parse(JSON.stringify(scope));
+            delete withoutQuery.event.request.intent.slots.query;
+
+            builtHandlers[0].spyIntent.call(withoutQuery);
+
+            expect(searchSpy).toHaveBeenCalledWith('', expectedParams);
+          });
+
           describe('when handler is invoked', () => {
             it('searches Algolia', () => {
-              const expectedParams = {};
-
               builtHandlers[0].spyIntent.call(scope);
 
               expect(searchSpy).toHaveBeenCalledWith(expectedQuery, expectedParams);
