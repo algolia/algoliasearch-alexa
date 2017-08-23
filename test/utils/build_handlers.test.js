@@ -88,7 +88,7 @@ describe('handlers', () => {
 
           describe('without a query slot', () => {
             const withoutQuery = JSON.parse(JSON.stringify(scope));
-            delete withoutQuery.event.request.intent.slots.query;
+            delete withoutQuery.event.request.intent.slots;
 
             builtHandlers[0].spyIntent.call(withoutQuery);
 

@@ -21,7 +21,11 @@ function buildFromObject(obj, index, stateString) {
       object[key] = function() {
         const args = {event: this.event};
         const params = buildParams(paramsObj, this.event);
-        const query = args.event.request.intent.slots.query ? args.event.request.intent.slots.query.value : '';
+        let query = '';
+        if (args.event.request.intent.slots && args.event.request.intent.slots.query) {
+          query = args.event.request.intent.slots.query.value;
+        }
+
         index
           .search(query, params)
           .then((results, err) => {
