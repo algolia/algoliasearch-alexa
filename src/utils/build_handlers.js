@@ -21,8 +21,13 @@ function buildFromObject(obj, index, stateString) {
       object[key] = function() {
         const args = {event: this.event};
         const params = buildParams(paramsObj, this.event);
+        let query = '';
+        if (args.event.request.intent.slots && args.event.request.intent.slots.query) {
+          query = args.event.request.intent.slots.query.value;
+        }
+
         index
-          .search(args.event.request.intent.slots.query.value, params)
+          .search(query, params)
           .then((results, err) => {
             Object.assign(args, {err, results});
             func.call(this, args);
