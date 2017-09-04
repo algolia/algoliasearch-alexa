@@ -8,14 +8,16 @@ export default function buildParams (params, event) {
   if (!isObject(params)) {
     throw new Error('params must be an object');
   }
-
-  for (const prop in params) {
-    if (params.hasOwnProperty(prop)) {
-      if (isFunction(params[prop])) {
-        params[prop] = params[prop](event);
+  
+  // Copy the params object, to avoid overriding the original keys/value pairs
+  const builtParams = Object.assign({}, params);
+  for (const prop in builtParams) {
+    if (builtParams.hasOwnProperty(prop)) {
+      if (isFunction(builtParams[prop])) {
+        builtParams[prop] = builtParams[prop](event);
       }
     }
   }
 
-  return params;
+  return builtParams;
 }
