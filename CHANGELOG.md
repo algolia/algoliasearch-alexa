@@ -1,3 +1,8 @@
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/algolia/algoliasearch-alexa-adapter/compare/v1.1.2...v1.1.3) (2017-09-12)
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/algolia/algoliasearch-alexa-adapter/compare/v1.1.1...v1.1.2) (2017-09-04)
 
