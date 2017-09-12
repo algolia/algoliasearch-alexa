@@ -60,9 +60,9 @@ ajv@^4.7.0:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
 
-alexa-sdk@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/alexa-sdk/-/alexa-sdk-1.0.6.tgz#4d1a8c728de837fbb3bde53e1328d05b8c7ee73b"
+alexa-sdk@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/alexa-sdk/-/alexa-sdk-1.0.14.tgz#46f225ce5f0e9315ca53623dc5fb4058e2e7fb14"
   dependencies:
     aws-sdk "^2.4.7"
     i18next "^3.4.1"
@@ -4355,6 +4355,10 @@ semver-diff@^2.0.0:
 semver@^4.0.3:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.6.tgz#300bc6e0e86374f7ba61068b5b1ecd57fc6532da"
+
+semver@^5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
 
 set-blocking@^2.0.0, set-blocking@~2.0.0:
   version "2.0.0"

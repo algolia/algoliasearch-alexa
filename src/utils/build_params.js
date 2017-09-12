@@ -8,7 +8,7 @@ export default function buildParams (params, event) {
   if (!isObject(params)) {
     throw new Error('params must be an object');
   }
-  
+
   // Copy the params object, to avoid overriding the original keys/value pairs
   const builtParams = Object.assign({}, params);
   for (const prop in builtParams) {
