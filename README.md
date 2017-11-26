@@ -34,7 +34,7 @@ const handlers = {
   SearchProductIntent: {
     answerWith (data) {
       if(data.results.nbHits) {
-        this.emit(':tell', `There were ${data.results.hits.length} products found.`);
+        this.emit(':tell', `There were ${data.results.nbHits} products found.`);
       } else {
         this.emit(':tell', 'We could find no products. Please try again.');
       }
