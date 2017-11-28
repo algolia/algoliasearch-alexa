@@ -33,8 +33,8 @@ const handlers = {
   },
   SearchProductIntent: {
     answerWith (data) {
-      if(data.results.length) {
-        this.emit(':tell', `There were ${data.results.hits.length} products found.`);
+      if(data.results.nbHits) {
+        this.emit(':tell', `There were ${data.results.nbHits} products found.`);
       } else {
         this.emit(':tell', 'We could find no products. Please try again.');
       }
@@ -48,10 +48,10 @@ const handlers = {
   },
   CustomHelpIntent () {
     const speechOutput = 'Find one of 10,000 products from the Product Store, powered by Algolia.';
-    this.emit(':ask', speechOutput);
+    this.emit(':tell', speechOutput);
   },
   Unhandled () {
-    this.emit(':ask', 'Look for products in the Product Store.');
+    this.emit(':tell', 'Look for products in the Product Store.');
   },
 };
 
