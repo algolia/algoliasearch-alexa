@@ -20,7 +20,7 @@ function buildFromObject(obj, index, stateString) {
 
       object[key] = function() {
         const args = {event: this.event};
-        const params = buildParams(paramsObj, this.event);
+        const params = buildParams(paramsObj, this.event, this);
         let query = '';
         if (args.event.request.intent.slots && args.event.request.intent.slots.query) {
           query = args.event.request.intent.slots.query.value;

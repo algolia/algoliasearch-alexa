@@ -41,8 +41,8 @@ const handlers = {
     },
     params: {
       hitsPerPage: 1,
-      filters (requestBody) {
-        return `brand:${requestBody.request.intent.slots.brand.value}`;
+      filters (event, context) {
+        return `brand:${event.request.intent.slots.brand.value}`;
       }
     },
   },
