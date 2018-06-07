@@ -1,6 +1,6 @@
 import {isObject, isFunction} from './is_of_type.js';
 
-export default function buildParams (params, event) {
+export default function buildParams (params, event, context) {
   if (params === undefined || params === null) {
     return {};
   }
@@ -14,7 +14,7 @@ export default function buildParams (params, event) {
   for (const prop in builtParams) {
     if (builtParams.hasOwnProperty(prop)) {
       if (isFunction(builtParams[prop])) {
-        builtParams[prop] = builtParams[prop](event);
+        builtParams[prop] = builtParams[prop](event, context);
       }
     }
   }
